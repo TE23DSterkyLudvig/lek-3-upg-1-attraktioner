@@ -2,15 +2,18 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-     Scanner tb = new Scanner(System.in); 
+    int kuponger  = 10;
+    Scanner tb = new Scanner(System.in); 
      int val = 0;
-     int kuponger  = 10;
      int längd = 0;
      int alder = 0;
      boolean vuxen;
-
+     int mVuxen[] = {95,4};
+     int uVuxen[] = {120,6};
+while(kuponger > 0){
 
      System.out.println("Välkommen, välj attraktion!");
+    System.out.println("Du har " + kuponger +" kuponger kvar");
      System.out.println("1.Cirkuskarusellen");
      System.out.println("2:Flygande mattan");
      System.out.println("3.Pumpen");
@@ -42,6 +45,7 @@ public class App {
             kuponger --;
             System.out.println("Du har skoj i karusellen");
         }
+        Thread.sleep(3000);
     }
 
     else if (val == 2){
@@ -116,9 +120,13 @@ public class App {
             kuponger -= 2;
             System.out.println("Du har skoj i flygande mattan");
         }
+
+        Thread.sleep(3000);
     }
     
     else if (val == 3){
+        int aldergräns = 0;
+        int längdgräns = 0;
         while(true){
             System.out.println("""
                     
@@ -128,6 +136,7 @@ public class App {
 
             while(true){
             System.out.println("Åker du med vuxen? :");
+            tb.nextLine();
             String svar = tb.nextLine();
 
                 if (svar.equalsIgnoreCase("ja")){
@@ -145,6 +154,16 @@ public class App {
             }
 
 
+            if(vuxen == true){
+               aldergräns = mVuxen[1];
+               längdgräns = mVuxen[0];
+            }
+            else if(vuxen == false){
+                aldergräns = uVuxen[1];
+                längdgräns = uVuxen[0];
+            }
+
+
             try{
             System.out.print("Ange längd:");
             längd = tb.nextInt();
@@ -159,7 +178,7 @@ public class App {
     
             }
     
-            if(längd < 140){
+            if(längd < längdgräns){
                 System.out.println("Du är för kort.");
                 return;
             }
@@ -184,7 +203,7 @@ public class App {
         
             }
         
-                if(alder < 8){
+                if(alder < aldergräns){
                     System.out.println("Du är för ung.");
                     return;
                 }
@@ -197,26 +216,30 @@ public class App {
         
     
     
-            if (kuponger < 2){
-                System.out.println("Du har inte råd att åka flygande mattan.");
+            if (kuponger < 3){
+                System.out.println("Du har inte råd att åka pumpen.");
             }
-            else if(kuponger >= 2){
-                System.out.println("Du spenderar 2 kuponger på flygande mattan..");
-                kuponger -= 2;
-                System.out.println("Du har skoj i flygande mattan");
+            else if(kuponger >= 3){
+                System.out.println("Du spenderar 3 kuponger på pumpen..");
+                kuponger -= 3;
+                System.out.println("Du har skoj i pumpen");
             }
+            Thread.sleep(3000);
         }
     
    else if (val == 4){
-        if (kuponger < 1){
-            System.out.println("Du har inte råd att åka cirkuskarusellen.");
-        }
-        else if(kuponger >= 1){
-            System.out.println("Du spenderar en biljett på cikrusekarusellen.");
-            kuponger --;
-            System.out.println("Du har skoj i karusellen");
-        }
+    System.out.println("Du valde att gå hem och var tråkig och dyster medans dina vänner har kul på tivoli!");
+    Thread.sleep(5000);
+    tb.close();
+    System.exit(0);
+
     }
 
     }
+   if(kuponger <= 0) {
+    System.out.println("Bye Bye");
+    System.exit(0);
+    tb.close();
+   }
+}
 }
